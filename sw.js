@@ -1,9 +1,10 @@
-const CACHE_NAME = 'trackers-workspace-20260916-clean1';
+const CACHE_NAME = 'trackers-workspace-20260916-clean2';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './assets/css/app.css',
+  './assets/css/layout-fix.css',
   './assets/js/storage-guard.js',
   './assets/js/config.js',
   './assets/js/cloud.js',

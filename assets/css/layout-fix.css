@@ -1,0 +1,642 @@
+/* =========================================================================
+   Trackers Workspace — Layout Fix
+   -------------------------------------------------------------------------
+   File ini HANYA mengatur LAYOUT: jarak, lebar kolom, perataan, dan wrapping.
+   Tidak ada satupun warna, font-family, atau tema yang diubah, jadi tema
+   "Twotone" dan warna asli dari app.css tetap utuh.
+
+   Cara pakai: taruh <link> file ini SETELAH app.css di index.html.
+
+   Semua aturan dibungkus @media screen supaya hasil "Cetak PDF" PKBON
+   sama persis seperti sebelumnya.
+   ========================================================================= */
+
+@media screen {
+
+  /* ----------------------------------------------------------------------
+     0. Token jarak — ubah angka di sini kalau mau lebih rapat / lebih lega
+     ---------------------------------------------------------------------- */
+  :root {
+    --lf-gap-xs: 8px;    /* jarak antar elemen kecil di dalam card   */
+    --lf-gap-sm: 12px;   /* jarak antar tombol / isi header          */
+    --lf-gap: 16px;      /* jarak antar card di dalam satu grid      */
+    --lf-gap-lg: 20px;   /* jarak antar section besar                */
+    --lf-pad: 18px;      /* padding dalam card                       */
+    --lf-bar-h: 78px;    /* tinggi bottom nav mobile                 */
+  }
+
+  /* ----------------------------------------------------------------------
+     1. Fondasi — penyebab paling umum card "berbenturan"
+     ---------------------------------------------------------------------- */
+
+  /* Padding & border ikut dihitung ke dalam lebar. Tanpa ini, card dengan
+     padding selalu melebihi kolom grid-nya dan menabrak card sebelahnya. */
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  html,
+  body { overflow-x: hidden; }
+
+  /* Teks panjang tanpa spasi (Site ID Client, koordinat, nomor SPMK, URL)
+     adalah penyebab nomor satu teks nyembul keluar dari card. */
+  body,
+  .panel,
+  .sidecard,
+  .surface,
+  .modal,
+  .infobox,
+  .metric,
+  .metric-card,
+  .report-kpi,
+  .feature,
+  .settings-row { overflow-wrap: anywhere; word-break: break-word; }
+
+  img,
+  svg,
+  canvas,
+  video { max-width: 100%; }
+
+  /* Field form tidak boleh memaksa kolom grid melebar. input[type=date]
+     dan select adalah pelaku utamanya di layar HP. */
+  input,
+  select,
+  textarea,
+  button { font: inherit; max-width: 100%; min-width: 0; }
+
+  textarea { width: 100%; resize: vertical; }
+
+  /* ----------------------------------------------------------------------
+     2. Kerangka halaman
+     ---------------------------------------------------------------------- */
+
+  .workspace,
+  .main { min-width: 0; }
+
+  /* Hanya view yang aktif yang disentuh, supaya view lain tetap tersembunyi.
+     Flex + gap membuat jarak antar section selalu sama besar. */
+  .view.active,
+  .tabpane.active {
+    display: flex;
+    flex-direction: column;
+    gap: var(--lf-gap-lg);
+    min-width: 0;
+  }
+
+  /* Margin bawaan tiap section dimatikan supaya gap di atas yang berlaku.
+     Inilah yang bikin jarak vertikal jadi konsisten, tidak loncat-loncat. */
+  .view.active > *,
+  .tabpane.active > * { margin-top: 0; margin-bottom: 0; min-width: 0; }
+
+  /* Konten tidak tertutup bottom nav di HP. Nilainya mengikuti safe area
+     supaya aman di HP dengan gesture bar. */
+  @media (max-width: 980px) {
+    .workspace,
+    .main {
+      padding-bottom: calc(var(--lf-bar-h) + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  /* ----------------------------------------------------------------------
+     3. Topbar — judul, search, dan tombol akun sering bertabrakan
+     ---------------------------------------------------------------------- */
+
+  .neo-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--lf-gap-sm);
+    min-width: 0;
+  }
+
+  .topbar-heading {
+    flex: 1 1 200px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .topbar-heading h1,
+  .topbar-heading .topbar-eyebrow { margin: 0; }
+
+  .global-search-bar {
+    flex: 1 1 280px;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--lf-gap-xs);
+  }
+
+  .global-search-bar svg { flex: 0 0 auto; }
+  .global-search-bar input { flex: 1 1 auto; min-width: 0; }
+
+  .neo-topbar-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: var(--lf-gap-xs);
+    margin-left: auto;
+  }
+
+  .notify-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; }
+
+  .cloud-account-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--lf-gap-xs);
+    min-width: 0;
+    max-width: 220px;
+  }
+
+  .cloud-avatar-mini { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; }
+
+  .cloud-account-copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.25;
+  }
+
+  /* Nama akun dipotong dengan "..." daripada mendorong tombol lain. */
+  .cloud-account-copy strong,
+  .cloud-account-copy small {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .cloud-account-copy { display: none; }
+    .global-search-bar { order: 3; flex-basis: 100%; }
+  }
+
+  /* ----------------------------------------------------------------------
+     4. Header di dalam card (panelhead / section-head / modalhead)
+     ---------------------------------------------------------------------- */
+
+  .panelhead,
+  .section-head,
+  .modalhead,
+  .report-block-head,
+  .card-head,
+  .detailtop,
+  .sitetitle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--lf-gap-sm);
+    min-width: 0;
+  }
+
+  .panelhead > div,
+  .section-head > div,
+  .modalhead > div,
+  .card-head > div,
+  .sitetitle > div { min-width: 0; flex: 1 1 240px; }
+
+  .panelhead h2,
+  .section-head h2,
+  .modalhead h2,
+  .card-head h3,
+  .sitetitle h2 { margin: 0; }
+
+  .panelhead p,
+  .section-head p,
+  .modalhead p,
+  .sitetitle .eyebrow { margin: 4px 0 0; }
+
+  /* Kelompok tombol di kanan header selalu utuh dan tidak terpotong. */
+  .actions,
+  .bulk-actions,
+  .dashboard-actions,
+  .form-top-actions,
+  .toolrow,
+  .row-buttons,
+  .template-toolbar,
+  .attachment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--lf-gap-xs);
+    min-width: 0;
+  }
+
+  .panelhead .actions,
+  .section-head .dashboard-actions,
+  .section-head .form-top-actions { flex: 0 0 auto; margin-left: auto; }
+
+  .btn,
+  .navbtn,
+  .tab,
+  .text-button,
+  .upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .modalhead .close { flex: 0 0 auto; margin-left: auto; }
+
+  /* ----------------------------------------------------------------------
+     5. GRID — inti dari "simetris"
+     -------------------------------------------------------------------------
+     Semua grid diubah ke auto-fit + minmax. Efeknya:
+       - kolom selalu sama lebar (simetris)
+       - jumlah kolom menyusut sendiri saat layar sempit, jadi card tidak
+         pernah gepeng sampai isinya bertabrakan
+     align-items: stretch membuat tinggi card dalam satu baris sama rata.
+     ---------------------------------------------------------------------- */
+
+  .metrics,
+  .featuregrid,
+  .infogrid,
+  .statgrid,
+  .report-kpis,
+  .report-grid,
+  .report-filter-grid,
+  .site-filter-grid,
+  .bast-process-filters,
+  .bast-process-grid,
+  .bast-subgrid,
+  .dashboard-grid,
+  .dashboard-lower,
+  .dashboard-overview-grid,
+  .rekap-filter,
+  .filters,
+  .formgrid,
+  .grid {
+    display: grid;
+    gap: var(--lf-gap);
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  /* Setiap anak grid wajib boleh menyusut, kalau tidak ia akan meluber
+     melewati kolomnya dan menimpa tetangganya. */
+  .metrics > *,
+  .featuregrid > *,
+  .infogrid > *,
+  .statgrid > *,
+  .report-kpis > *,
+  .report-grid > *,
+  .report-filter-grid > *,
+  .site-filter-grid > *,
+  .bast-process-filters > *,
+  .bast-process-grid > *,
+  .bast-subgrid > *,
+  .dashboard-grid > *,
+  .dashboard-lower > *,
+  .dashboard-overview-grid > *,
+  .rekap-filter > *,
+  .filters > *,
+  .formgrid > *,
+  .grid > * { min-width: 0; }
+
+  .metrics            { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .report-kpis        { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .dashboard-grid     { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .infogrid           { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .statgrid           { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lf-gap-sm); width: 100%; }
+  .featuregrid        { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .report-grid        { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .bast-process-grid  { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .dashboard-lower    { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .bast-subgrid       { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+  .filters,
+  .site-filter-grid,
+  .report-filter-grid,
+  .bast-process-filters,
+  .rekap-filter       { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+
+  .formgrid           { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  .grid.two           { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .grid.three         { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .grid.four          { grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); }
+  .grid.five          { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+
+  /* span2 dibuat selalu selebar penuh. Kalau dibiarkan "span 2" sementara
+     grid sedang 1 kolom, browser membuat kolom bayangan dan isinya keluar
+     dari card. Ini bug yang sering terlihat sebagai teks menimpa tombol. */
+  .span2 { grid-column: 1 / -1; }
+
+  /* Dashboard: panel besar + kartu Overall. Sengaja tidak sama lebar,
+     tapi tetap rapi dan turun jadi satu kolom di layar sempit. */
+  .dashboard-overview-grid { grid-template-columns: minmax(0, 1fr); }
+
+  @media (min-width: 1040px) {
+    .dashboard-overview-grid { grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); }
+  }
+
+  /* ----------------------------------------------------------------------
+     6. Isi card — perataan agar tinggi dan baseline seragam
+     ---------------------------------------------------------------------- */
+
+  .panel,
+  .sidecard,
+  .surface,
+  .report-block,
+  .metric-card,
+  .activity-detail-card,
+  .import-summary-card,
+  .summary-card,
+  .finance-total-card,
+  .attachment-card,
+  .choice-card,
+  .checkcard {
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--lf-gap-sm);
+  }
+
+  .panel > *,
+  .sidecard > *,
+  .surface > *,
+  .report-block > * { margin-top: 0; margin-bottom: 0; }
+
+  /* Tombol metrik & KPI: label - angka - keterangan selalu sejajar
+     antar kolom, dan tinggi kotaknya sama rata. */
+  .metric,
+  .report-kpi,
+  .metric-card,
+  .infobox,
+  .pkbon-site-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 4px;
+    text-align: left;
+    height: 100%;
+    min-width: 0;
+    padding: var(--lf-pad);
+  }
+
+  .metric span,
+  .metric strong,
+  .metric small,
+  .report-kpi span,
+  .report-kpi strong,
+  .metric-card span,
+  .metric-card strong,
+  .metric-card small,
+  .infobox span,
+  .infobox strong { display: block; min-width: 0; margin: 0; line-height: 1.3; }
+
+  /* Angka besar didorong ke bawah supaya baris "small" di semua card
+     berada di garis yang sama, meski panjang labelnya beda. */
+  .metric small,
+  .metric-card small { margin-top: auto; padding-top: 4px; }
+
+  /* Feature card: ikon | teks | panah. Panah dikunci di kanan supaya
+     tidak pernah menindih judul. */
+  .feature {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--lf-gap-sm);
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    padding: var(--lf-pad);
+  }
+
+  .feature-icon { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; }
+  .feature-copy { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .feature-copy h3,
+  .feature-copy p,
+  .feature-copy .kicker { margin: 0; min-width: 0; }
+  .feature .arrow { flex: 0 0 auto; align-self: center; }
+
+  /* Kartu Overall Progress dibuat benar-benar center secara vertikal
+     maupun horizontal. */
+  .dashboard-overall-card {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--lf-gap-sm);
+  }
+
+  .dashboard-overall-card h3,
+  .dashboard-overall-card p,
+  .overall-card-title { margin: 0; }
+
+  .progressring { margin-inline: auto; flex: 0 0 auto; }
+  .ringinner { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  .statgrid > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  /* Baris Settings: teks kiri, chevron kanan, tidak pernah bersentuhan. */
+  .settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--lf-gap-sm);
+    width: 100%;
+    text-align: left;
+    min-width: 0;
+  }
+
+  .settings-row-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .settings-row-text strong,
+  .settings-row-text small { display: block; min-width: 0; }
+  .settings-chevron { flex: 0 0 auto; }
+
+  /* Nomor langkah 01/02/03 di form PKBON. */
+  .block-title {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: var(--lf-gap-sm);
+    min-width: 0;
+  }
+
+  .block-title > span { flex: 0 0 auto; }
+  .block-title h3,
+  .block-title p { margin: 0; min-width: 0; }
+
+  .form-block { display: flex; flex-direction: column; gap: var(--lf-gap); min-width: 0; }
+
+  /* ----------------------------------------------------------------------
+     7. Label & field form — tinggi baris seragam antar kolom
+     ---------------------------------------------------------------------- */
+
+  .field,
+  .grid label,
+  .formgrid label,
+  .filters label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .field > span,
+  .grid label > span { display: block; min-width: 0; line-height: 1.3; }
+
+  .field input,
+  .field select,
+  .field textarea,
+  .grid label input,
+  .grid label select,
+  .grid label textarea,
+  .formgrid input,
+  .formgrid select,
+  .formgrid textarea { width: 100%; min-width: 0; }
+
+  /* Label bisa 1 atau 2 baris; input tetap sejajar di dasar tiap kolom. */
+  .grid label input,
+  .grid label select { margin-top: auto; }
+
+  .formactions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--lf-gap-xs);
+    min-width: 0;
+  }
+
+  .formactions .btn { flex: 0 1 auto; }
+
+  /* ----------------------------------------------------------------------
+     8. Tabel — 11 kolom tidak mungkin muat di HP, jadi digeser, bukan digencet
+     ---------------------------------------------------------------------- */
+
+  .tablewrap,
+  .table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  .tablewrap > table { width: 100%; min-width: 760px; }
+  .table-wrap > .input-table { width: 100%; min-width: 880px; }
+  .tablewrap > .report-table { min-width: 640px; }
+
+  .tablewrap th,
+  .table-wrap th { white-space: nowrap; }
+
+  .tablewrap td,
+  .table-wrap td { vertical-align: middle; }
+
+  /* ----------------------------------------------------------------------
+     9. Modal — isi panjang di-scroll, bukan menembus layar
+     ---------------------------------------------------------------------- */
+
+  .modalbg {
+    padding: var(--lf-gap);
+    padding-bottom: calc(var(--lf-gap) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .modal {
+    width: 100%;
+    max-width: min(760px, 100%);
+    max-height: min(88vh, 940px);
+    margin-inline: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--lf-gap-sm);
+  }
+
+  .modal.small { max-width: min(520px, 100%); }
+  .modal > * { margin-top: 0; margin-bottom: 0; min-width: 0; }
+
+  /* ----------------------------------------------------------------------
+     10. Sidebar & bottom nav
+     ---------------------------------------------------------------------- */
+
+  .sidebar-nav { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .navbtn { width: 100%; justify-content: flex-start; text-align: left; min-width: 0; }
+
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand-copy { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+  .trackers-logo-image { flex: 0 0 auto; }
+
+  .sidebar-support { display: flex; flex-direction: column; gap: 2px; min-width: 0; margin-top: auto; }
+
+  /* display: tidak disentuh, supaya aturan sembunyi/tampil dari app.css
+     tetap berjalan apa adanya. */
+  .mobilebar {
+    gap: 2px;
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px));
+    min-width: 0;
+  }
+
+  /* 7 tombol dalam satu baris: semuanya dibagi rata, label dipotong rapi
+     daripada membungkus dan mendorong tinggi bar. */
+  .mobilebar .mobnav {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 2px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .mobilebar .mobnav small {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 380px) {
+    .mobilebar .mobnav small { font-size: 10px; letter-spacing: 0; }
+  }
+
+  /* ----------------------------------------------------------------------
+     11. Lain-lain
+     ---------------------------------------------------------------------- */
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+  .tabs .tab { flex: 1 1 auto; min-width: 0; }
+
+  .empty { display: grid; place-items: center; text-align: center; padding: 28px 16px; min-width: 0; }
+  .empty h3,
+  .empty p { margin: 0 0 4px; }
+
+  .simple-list,
+  .list,
+  .recent-list,
+  .report-breakdown,
+  .dashboard-activity-list { display: flex; flex-direction: column; gap: var(--lf-gap-xs); min-width: 0; }
+
+  .toast { max-width: calc(100% - 32px); }
+
+  /* Fokus keyboard tetap terlihat tanpa mengubah warna tema. */
+  :focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+}
