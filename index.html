@@ -428,18 +428,13 @@
 
 <section class="view" id="notesView">
 <section class="notes-panel">
-<div class="notes-head">
-<div><p class="eyebrow">PERSONAL WORKSPACE</p><h2>NOTE PAD</h2><p class="notes-subtitle">Catatan cepat seperti Google Keep, tersimpan bersama workspace.</p></div>
-<div class="notes-head-actions">
+<div class="notes-toolbar notes-toolbar-clean">
+<label class="notes-search" for="noteSearchInput"><span>⌕</span><input id="noteSearchInput" type="search" placeholder="Cari catatan..." autocomplete="off"/></label>
+</div>
+<div class="notes-mode-row" aria-label="Filter catatan">
 <button class="notes-mode-btn active" id="notesActiveMode" type="button">Catatan</button>
 <button class="notes-mode-btn" id="notesArchiveMode" type="button">Arsip</button>
 </div>
-</div>
-<div class="notes-toolbar">
-<label class="notes-search" for="noteSearchInput"><span>⌕</span><input id="noteSearchInput" type="search" placeholder="Cari catatan..." autocomplete="off"/></label>
-<button class="btn dark notes-new-btn" id="newNoteBtn" type="button">＋ Catatan Baru</button>
-</div>
-<button class="notes-quick-compose" id="quickNewNoteBtn" type="button"><span>Tulis catatan...</span><b>＋</b></button>
 <div class="notes-section" id="notesPinnedSection">
 <div class="notes-section-title"><span>PINNED</span><small id="notesPinnedCount">0</small></div>
 <div class="notes-grid" id="notesPinnedGrid"></div>
@@ -449,7 +444,7 @@
 <div class="notes-grid" id="notesMainGrid"></div>
 </div>
 <div class="notes-empty" id="notesEmpty">
-<div class="notes-empty-icon">T</div><h3>Belum ada catatan</h3><p>Tekan Catatan Baru untuk menyimpan ide, pekerjaan, nomor penting, atau pengingat singkat.</p>
+<div class="notes-empty-icon">T</div><h3>Belum ada catatan</h3><p>Belum ada catatan tersimpan pada workspace ini.</p>
 </div>
 </section>
 </section>

@@ -6363,3 +6363,17 @@ html[data-theme="light"] .sidebar-nav .navbtn.active:focus-visible{
     transform:none!important;
   }
 }
+
+
+/* ===== Note Pad compact header override =====
+   Search first, mode tabs second; legacy intro/new/quick composer removed. */
+#notesView .notes-panel{gap:14px!important}
+#notesView .notes-toolbar-clean{display:block!important;width:100%!important}
+#notesView .notes-toolbar-clean .notes-search{width:100%!important}
+#notesView .notes-mode-row{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;width:100%!important;margin:0!important}
+#notesView .notes-mode-row .notes-mode-btn{min-width:92px!important}
+@media (max-width:700px){
+  #notesView .notes-panel{gap:12px!important}
+  #notesView .notes-mode-row{justify-content:stretch!important}
+  #notesView .notes-mode-row .notes-mode-btn{flex:1!important}
+}

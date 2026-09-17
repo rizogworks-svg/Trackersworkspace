@@ -1795,8 +1795,6 @@ $("ruleForm").onsubmit=e=>{
 
 
 
-$("newNoteBtn").onclick=()=>openNoteModal();
-$("quickNewNoteBtn").onclick=()=>openNoteModal();
 $("noteForm").onsubmit=saveNoteFromForm;
 $("noteSearchInput").oninput=renderNotes;
 $("notesActiveMode").onclick=()=>{noteViewMode="active";renderNotes()};
