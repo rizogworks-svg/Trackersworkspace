@@ -6269,6 +6269,7 @@ html[data-theme="light"] .note-color-dot[data-note-color="default"]{background:#
     display:grid!important;
     place-items:center!important;
     color:inherit!important;
+    transform:translateX(10px)!important;
   }
 
   .nav-icon svg{
