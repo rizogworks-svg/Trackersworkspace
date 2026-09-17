@@ -6323,3 +6323,43 @@ html[data-theme="light"] .sidebar-nav .navbtn.active:hover,
 html[data-theme="light"] .sidebar-nav .navbtn.active:focus-visible{
   color:#171b10!important;
 }
+
+/* ================================================================
+   TRACKERS WORKSPACE — SIDEBAR DOT / ICON HARD SEPARATION
+   2026-09-17
+   Keep the indicator dot in its own left lane and move the icon
+   into a dedicated lane so the two can never visually overlap.
+   ================================================================ */
+@media screen and (min-width:821px){
+  .sidebar-nav .navbtn{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    padding:0!important;
+  }
+
+  .sidebar-nav .navbtn::before{
+    left:14px!important;
+    width:8px!important;
+    height:8px!important;
+  }
+
+  .sidebar-nav .navbtn .nav-icon{
+    position:relative!important;
+    flex:0 0 32px!important;
+    width:32px!important;
+    height:32px!important;
+    margin-left:46px!important;
+    transform:none!important;
+  }
+}
+
+@media screen and (min-width:821px) and (max-height:820px){
+  .sidebar-nav .navbtn .nav-icon{
+    flex-basis:29px!important;
+    width:29px!important;
+    height:29px!important;
+    margin-left:46px!important;
+    transform:none!important;
+  }
+}
