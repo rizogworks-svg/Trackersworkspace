@@ -9,24 +9,38 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Trackers Workspace"/>
-<link rel="manifest" href="manifest.webmanifest?v=20260916.1"/>
-<link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png?v=20260916.1"/>
-<link rel="apple-touch-icon" href="assets/img/icon-192.png?v=20260916.1"/>
+<link rel="manifest" href="manifest.webmanifest?v=20260917.1"/>
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png?v=20260917.1"/>
+<link rel="apple-touch-icon" href="assets/img/icon-192.png?v=20260917.1"/>
 <title>Trackers Workspace</title>
-<link rel="stylesheet" href="assets/css/app.css?v=20260916.1"/>
+<link rel="stylesheet" href="assets/css/app.css?v=20260917.1"/>
 </head>
 <body>
 <div class="app">
 <header class="shell-sidebar">
-<div class="brand"><img class="trackers-logo-image" src="assets/img/trackers-logo.png?v=20260916.1" alt="Trackers logo"/><span class="brand-copy"><span class="brand-name">TRACKERS</span><small>Workspace</small></span></div>
-<nav class="sidebar-nav">
-<button class="navbtn active" data-route="dashboard">Dashboard</button>
-<button class="navbtn" data-route="sites">Projects</button>
-<button class="navbtn" data-route="bastprocess">BAST</button>
-<button class="navbtn" data-route="pkbon">PKBON</button>
-<button class="navbtn" data-route="notes">Note Pad</button>
-<button class="navbtn" data-route="reporting">Reporting</button>
-<button class="navbtn" data-route="settings">Settings</button>
+<div class="brand"><img class="trackers-logo-image" src="assets/img/trackers-logo.png?v=20260917.1" alt="Trackers logo"/><span class="brand-copy"><span class="brand-name">TRACKERS</span><small>Workspace</small></span></div>
+<nav class="sidebar-nav" aria-label="Navigasi utama">
+<button class="navbtn active" data-route="dashboard" data-label="Dashboard" aria-label="Dashboard" title="Dashboard" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.2"></rect><rect x="14" y="4" width="6" height="6" rx="1.2"></rect><rect x="4" y="14" width="6" height="6" rx="1.2"></rect><rect x="14" y="14" width="6" height="6" rx="1.2"></rect></svg></span><span class="nav-label">Dashboard</span>
+</button>
+<button class="navbtn" data-route="sites" data-label="Projects" aria-label="Projects" title="Projects" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 7.5h6l2-2h4.8a2.2 2.2 0 0 1 2.2 2.2v1.1H5.3A1.8 1.8 0 0 0 3.5 10.6z"></path><path d="M4.2 8.8h15.1a1.7 1.7 0 0 1 1.6 2.2l-2.1 7a2.2 2.2 0 0 1-2.1 1.6H5.6a2.1 2.1 0 0 1-2.1-2.1v-6.9a1.8 1.8 0 0 1 .7-1.8z"></path></svg></span><span class="nav-label">Projects</span>
+</button>
+<button class="navbtn" data-route="bastprocess" data-label="BAST" aria-label="BAST" title="BAST" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8.2L18.5 8v12.5H6z"></path><path d="M14 3.5V8h4.5"></path><path d="m8.5 12 1.2 1.2 2.1-2.2"></path><path d="M13.5 12h2.5"></path><path d="m8.5 16 1.2 1.2 2.1-2.2"></path><path d="M13.5 16h2.5"></path></svg></span><span class="nav-label">BAST</span>
+</button>
+<button class="navbtn" data-route="pkbon" data-label="PKBON" aria-label="PKBON" title="PKBON" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8.2L18.5 8v12.5H6z"></path><path d="M14 3.5V8h4.5"></path><path d="M13.7 11.2c-.4-.4-1-.6-1.7-.6-1.1 0-1.9.5-1.9 1.3 0 2.1 4.1 1 4.1 3.1 0 .8-.8 1.4-2 1.4-.8 0-1.5-.2-2-.7"></path><path d="M12.1 9.7v7.6"></path></svg></span><span class="nav-label">PKBON</span>
+</button>
+<button class="navbtn" data-route="notes" data-label="Note Pad" aria-label="Note Pad" title="Note Pad" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="5.5" width="14" height="15" rx="2.2"></rect><path d="M8.5 3.5v4M12 3.5v4M15.5 3.5v4"></path><path d="M8.5 11h7M8.5 14h7M8.5 17h4.5"></path></svg></span><span class="nav-label">Note Pad</span>
+</button>
+<button class="navbtn" data-route="reporting" data-label="Reporting" aria-label="Reporting" title="Reporting" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20v-5h3v5zM10.5 20v-8h3v8zM16 20v-11h3v11z"></path><path d="m5 11 4-3 3 1.5 6-5"></path><path d="M15.5 4.5H18v2.6"></path></svg></span><span class="nav-label">Reporting</span>
+</button>
+<button class="navbtn" data-route="settings" data-label="Settings" aria-label="Settings" title="Settings" type="button">
+<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19 13.2v-2.4l-2-.7a6.7 6.7 0 0 0-.7-1.6l.9-1.9-1.7-1.7-1.9.9A6.7 6.7 0 0 0 12 5l-.7-2H8.9l-.7 2a6.7 6.7 0 0 0-1.6.7l-1.9-.9L3 6.5l.9 1.9a6.7 6.7 0 0 0-.7 1.6l-2 .7v2.4l2 .7a6.7 6.7 0 0 0 .7 1.6L3 17.3 4.7 19l1.9-.9a6.7 6.7 0 0 0 1.6.7l.7 2h2.4l.7-2a6.7 6.7 0 0 0 1.6-.7l1.9.9 1.7-1.7-.9-1.9a6.7 6.7 0 0 0 .7-1.6z"></path></svg></span><span class="nav-label">Settings</span>
+</button>
 </nav>
 <div class="sidebar-support"><strong>Need help?</strong><small>Trackers Workspace support</small></div>
 </header>
@@ -943,7 +957,7 @@
 <!-- Secure Auth Gate -->
 <div class="cloud-auth-gate" id="cloudAuthGate">
 <div class="cloud-auth-card">
-<img alt="Trackers" class="cloud-auth-logo" id="cloudAuthLogo" src="assets/img/trackers-logo.png?v=20260916.1"/>
+<img alt="Trackers" class="cloud-auth-logo" id="cloudAuthLogo" src="assets/img/trackers-logo.png?v=20260917.1"/>
 <p class="eyebrow">TRACKERS WORKSPACE PRIVATE</p>
 <h2>Masuk ke Trackers Workspace</h2>
 <p>Akses hanya untuk akun yang sudah diizinkan Admin.</p>
@@ -1074,10 +1088,10 @@
 </div>
 </div></div>
 <div class="toast" id="toast"></div>
-<script src="assets/js/storage-guard.js?v=20260916.1"></script>
+<script src="assets/js/storage-guard.js?v=20260917.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/config.js?v=20260916.1"></script><script src="assets/js/cloud.js?v=20260916.1"></script><script src="assets/js/pkbon.js?v=20260916.1"></script><script src="assets/js/app.js?v=20260916.1"></script>
-<script src="assets/js/boot.js?v=20260916.1"></script>
+<script src="assets/js/config.js?v=20260917.1"></script><script src="assets/js/cloud.js?v=20260917.1"></script><script src="assets/js/pkbon.js?v=20260917.1"></script><script src="assets/js/app.js?v=20260917.1"></script>
+<script src="assets/js/boot.js?v=20260917.1"></script>
 </body>
 </html>

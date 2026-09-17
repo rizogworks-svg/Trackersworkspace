@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trackers-workspace-20260916-clean1';
+const CACHE_NAME = 'trackers-workspace-20260917-iconnav1';
 const APP_SHELL = [
   './',
   './index.html',
